@@ -1,14 +1,14 @@
 {
   "name": "delete-older-releases",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dev-drprasad/delete-older-releases"
+    "url": "git+https://github.com/tweetgeek/delete-older-releases"
   },
   "keywords": [],
   "author": "REDDY PRASAD",
   "license": "ISC",
-  "homepage": "https://github.com/dev-drprasad/delete-older-releases",
+  "homepage": "https://github.com/tweetgeek/delete-older-releases",
   "dependencies": {}
 }

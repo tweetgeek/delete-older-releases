@@ -126,15 +126,15 @@ async function deleteOlderReleases(keepLatest, keepMinDownloadCount, deleteExpir
     const activeMatchedReleases = data.filter((item) => {
       if (deletePrereleaseOnly) {
         if (deletePatternStr) {
-          return !item.draft && item.assets.length > 0 && item.prerelease && item.tag_name.match(deletePattern);
+          return !item.draft && item.prerelease && item.tag_name.match(deletePattern);
         } else {
-          return !item.draft && item.assets.length > 0 && item.prerelease;
+          return !item.draft && item.prerelease;
         }
       } else {
         if (deletePatternStr) {
-          return !item.draft && item.assets.length > 0 && item.tag_name.match(deletePattern);
+          return !item.draft && item.tag_name.match(deletePattern);
         } else {
-          return !item.draft && item.assets.length > 0;
+          return !item.draft;
         }
       }
     })
@@ -145,7 +145,7 @@ async function deleteOlderReleases(keepLatest, keepMinDownloadCount, deleteExpir
     //   const hasAssets = item.assets.length > 0;
     //   const isPrerelease = item.prerelease;
     //   const isTagMatching = deletePatternStr ? item.tag_name.match(deletePattern) : true;
-    
+
     //   return !isDraft && hasAssets && (shouldDelete ? (isTagMatching && isPrerelease) : true);
     // });
 
@@ -165,7 +165,7 @@ async function deleteOlderReleases(keepLatest, keepMinDownloadCount, deleteExpir
         `💬  found total of ${activeMatchedReleases.length}${matchingLoggingAddition} active release(s)`
       );
     }
-    
+
 
 
     releaseIdsAndTags = activeMatchedReleases
@@ -182,15 +182,15 @@ async function deleteOlderReleases(keepLatest, keepMinDownloadCount, deleteExpir
       .slice(keepLatest);
 
 
-    if (keepMinDownloadCount !== 0) 
+    if (keepMinDownloadCount !== 0)
     {
-      if (deleteExpiredData !== 0) 
+      if (deleteExpiredData !== 0)
       {
         const currentDate = new Date();
         releaseIdsAndTags = releaseIdsAndTags.filter(item => {
           const publishedDate = new Date(item.published_at);
           const timeDifference = currentDate - publishedDate;
-          const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24)); 
+          const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
           return item.download_counts < keepMinDownloadCount || daysDifference > deleteExpiredData;
         });
       }
@@ -201,7 +201,7 @@ async function deleteOlderReleases(keepLatest, keepMinDownloadCount, deleteExpir
     }
     else
     {
-      if (deleteExpiredData !== 0) 
+      if (deleteExpiredData !== 0)
       {
         const currentDate = new Date();
         releaseIdsAndTags = releaseIdsAndTags.filter(item => {
